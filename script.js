@@ -11,9 +11,7 @@ $(document).ready(function () {
   var cityList = [];
   var cityname;
 
-  // local storage functions
 
-  // This function displays the city entered by the user into the DOM
   function pastCity() {
     $("#cityList").empty();
     $("#cityInput").val("");
@@ -29,7 +27,6 @@ $(document).ready(function () {
     }
   }
 
-  // This function pulls the city list array from local storage
   function pastCityList() {
     var recentCity = JSON.parse(localStorage.getItem("cities"));
     console.log("recentCity:", recentCity);
@@ -39,7 +36,6 @@ $(document).ready(function () {
 
 
 
-  // This function runs the Open Weather API AJAX call and displays the current city, weather, and 5 day forecast to the DOM
   async function displayWeather() {
     var queryURL =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -102,7 +98,6 @@ $(document).ready(function () {
       method: "GET",
     });
 
-    // getting UV Index info and setting color class according to value
     var getUVIndex = uvResponse.value;
     var uvNumber = $("<span class='text-white'>");
     if (getUVIndex >= 0 && getUVIndex <= 3.99) {
@@ -119,7 +114,6 @@ $(document).ready(function () {
     $("#weatherContainer").html(currentWeatherDiv);
   }
 
-  // This function pull the current city into local storage to display the current weather forecast on reload
   function allWeather() {
     var savedWeather = JSON.parse(localStorage.getItem("currentCity"));
     console.log("savedWeather:", savedWeather);
@@ -128,17 +122,14 @@ $(document).ready(function () {
     displayFiveDayForecast();
   }
 
-  // This function saves the city array to local storage
   function storeCityArray() {
     localStorage.setItem("cities", JSON.stringify(cityList));
   }
 
-  // This function saves the currently display city to local storage
   function storeCurrentCity() {
     localStorage.setItem("currentCity", JSON.stringify(cityname));
   }
 
-  // Click event handler for city search button
   $("#citySearch").on("click", function (event) {
     event.preventDefault();
 
@@ -167,7 +158,6 @@ $(document).ready(function () {
   
   
 
-  // This function is used to pass the city in the history list to the displayWeather function
   function historyDisplayWeather() {
     cityname = $(this).attr("data-name");
     displayWeather();
