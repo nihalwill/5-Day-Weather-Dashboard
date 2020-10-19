@@ -8,3 +8,5 @@ Added Moment JS to show current time
 Created "form" around search features and "submit" value so user can use "Enter" key instead of clicking "Search" button
 Added "Clear" button (Not tested yet)
 Started inital JS layout with Moment JS, clear button, and started the "Search" functionality
+Basic functionality working with weather API for city search and local storage/retrieval
+UV Index function and CSS linked to appropriate city search

@@ -1,3 +1,25 @@
 .body {
   cursor: pointer;
 }
+
+#cityList {
+  cursor: pointer;
+}
+
+.low {
+  border-radius: 6px;
+  background-color: green;
+  padding: 5px;
+}
+
+.moderate {
+  border-radius: 6px;
+  background-color: rgb(233, 114, 2);
+  padding: 5px;
+}
+
+.high {
+  border-radius: 6px;
+  background-color: red;
+  padding: 5px;
+}
