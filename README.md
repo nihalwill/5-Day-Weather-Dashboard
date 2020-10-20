@@ -10,3 +10,4 @@ Added "Clear" button (Not tested yet)
 Started inital JS layout with Moment JS, clear button, and started the "Search" functionality
 Basic functionality working with weather API for city search and local storage/retrieval
 UV Index function and CSS linked to appropriate city search
+5 Day functionality and recall when clicking on city from historical list working

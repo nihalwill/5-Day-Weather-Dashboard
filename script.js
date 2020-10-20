@@ -1,6 +1,7 @@
 // Global variable declarations
 
 $(document).ready(function () {
+  console.log("all sections linked")
   function updateTime() {
     var realTime = moment().format("MMMM Do YYYY, h:mm:ss a");
 
@@ -130,6 +131,64 @@ $(document).ready(function () {
     localStorage.setItem("currentCity", JSON.stringify(cityname));
   }
 
+
+  async function displayFiveDayForecast() {
+    var queryURL =
+      "https://api.openweathermap.org/data/2.5/forecast?q=" +
+      cityname +
+      "&units=imperial&appid=d3b85d453bf90d469c82e650a0a3da26";
+  
+    var response = await $.ajax({
+      url: queryURL,
+      method: "GET",
+    });
+    var forecastBox = $(
+      "<div  class = 'bg-warning text-white' id='fiveDayForecast'>"
+    );
+    var forecastHeader = $(
+      "<h5 class='card-header border-secondary font-weight-bold'>"
+    ).text("5 Day Forecast");
+    forecastBox.append(forecastHeader);
+    var cardDeck = $("<div  class='card-deck'>");
+    forecastBox.append(cardDeck);
+  
+    console.log(response);
+    for (i = 0; i < 5; i++) {
+      var forecastCard = $("<div class='card mb-3 mt-3'>");
+      var cardBody = $("<div class='card-body bg-dark text-white'>");
+      var date = new Date();
+      var val =
+        date.getMonth() +
+        1 +
+        "/" +
+        (date.getDate() + i + 1) +
+        "/" +
+        date.getFullYear();
+      var forecastDate = $("<h5 class='card-title'>").text(val);
+  
+      cardBody.append(forecastDate);
+      var getCurrentWeatherIcon = response.list[i].weather[0].icon;
+      console.log(getCurrentWeatherIcon);
+      var displayWeatherIcon = $(
+        "<img src = http://openweathermap.org/img/wn/" +
+          getCurrentWeatherIcon +
+          ".png />"
+      );
+      cardBody.append(displayWeatherIcon);
+      var getTemp = response.list[i].main.temp;
+      var tempEl = $("<p class='card-text'>").text("Temp: " + getTemp + "° F");
+      cardBody.append(tempEl);
+      var getHumidity = response.list[i].main.humidity;
+      var humidityEl = $("<p class='card-text'>").text(
+        "Humidity: " + getHumidity + "%"
+      );
+      cardBody.append(humidityEl);
+      forecastCard.append(cardBody);
+      cardDeck.append(forecastCard);
+    }
+    $("#fiveDay").html(forecastBox);
+  }
+
   $("#citySearch").on("click", function (event) {
     event.preventDefault();
 
@@ -146,6 +205,8 @@ $(document).ready(function () {
     storeCityArray();
     pastCity();
     displayWeather();
+    displayFiveDayForecast();
+
     
   });
   function clear() {
@@ -161,6 +222,8 @@ $(document).ready(function () {
   function historyDisplayWeather() {
     cityname = $(this).attr("data-name");
     displayWeather();
+    displayFiveDayForecast();
+
     
     console.log(cityname);
   }
